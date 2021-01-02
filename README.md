@@ -6,3 +6,9 @@ As such it serves as a playground for KDP-2. Functions are provided which allow 
 At the same time this project is intended to learn to use KDP-2 and eventually to understand its source code (in the far future ;-) ), such that additional features such as additional operands can be added. For this purpose this projects aims at a nicer documentation (using sphinx) and automated ways to explore the structure of the Fortran-90 legacy code of KDP-2 provided by J. E. Klein.
 
 Features will continuously be added by the author.
+
+Structure:
+- VisualKDP: Playground for KDP-2 with python ("macro" and "reading") functions.
+- VisualOptalix: Comparison with Optalix. Parsers to pyrate and KDP, because Optalix provides a very extensive
+  library of optical systems, see: http://optenso.com/hos/designfiles.html)
+- VisualOpticsPy: Adds some functions to pyrate for display of optical setups with pyvista.

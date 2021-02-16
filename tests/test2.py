@@ -151,7 +151,7 @@ r3r = s.seqtrace(initbundle3, sysseq)
 
 
 #draw(s, [(r1p, "blue"), (r2p, "green"), (r3p, "orange")])
-plotter = draw3D.draw3D_pyvista(s, [(r1p, "blue"), (r2p, "green"), (r3p, "orange")])
+plotter = draw3D.draw3D_pyvista(s, [(r1p, "blue"), (r2p, "green"), (r3p, "orange")], do_not_draw_surfaces=[s.elements["TMA"].surfaces["m1"]])
 #draw3D.draw3D_pyvista(s, (r1p, "blue"))
 
 # draw(s, [(r1r, "blue"), (r2r, "green"), (r3r, "orange")])

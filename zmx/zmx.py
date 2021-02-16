@@ -474,7 +474,7 @@ class ZMXParser(BaseLogger):
 
             wavelengthsdict = {}
             self.add_keyword_to_dict(
-                self.__textlines, "WAVM", wavelengthsdict,
+                self.__textlines, "WAVM", wavelengthsdict,                    # WV
                 self.extract_args_for_multiple_keywords_from_block,
                 int, float, float)
             my_wavelengths = list([(wavelength*1e-3, weight)

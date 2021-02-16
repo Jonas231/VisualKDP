@@ -112,7 +112,8 @@ from pyrateoptics.raytracer.surface import Surface
 def draw3d(self, plotter, vertices=50,
            inyzplane=True,
            color="white",
-           style="points", style_swapped_lines=False, **kwargs):
+           style="points", style_swapped_lines=False,
+           plot = 1, **kwargs):
     """
     :param plotter (plotter object)
     :param vertices (int), vertices in xy for aperture sampling
@@ -182,9 +183,13 @@ def draw3d(self, plotter, vertices=50,
     # see: https://docs.pyvista.org/examples/00-load/create-structured-surface.html
     #globalpts = np.c_[globalpts[0].reshape(-1), globalpts[1].reshape(-1), globalpts[2].reshape(-1)]
     #mesh = pv.PolyData(globalpts[0], globalpts[1], globalpts[2])  # x,y,z
-    mesh = pv.StructuredGrid(globalpts[0], globalpts[1], globalpts[2])
-    #mesh.plot_curvature(clim=[-1, 1])
-    plotter.add_mesh(mesh, opacity=0.85, color=tuple(np.random.random(3)))
+
+    if plot:
+        mesh = pv.StructuredGrid(globalpts[0], globalpts[1], globalpts[2])
+        #mesh.plot_curvature(clim=[-1, 1])
+        plotter.add_mesh(mesh, opacity=0.85, color=tuple(np.random.random(3)))
+    else:
+        return globalpts
 
 Surface.draw3d = draw3d
 

@@ -4,7 +4,8 @@ from pyvistaqt import BackgroundPlotter
 
 #from pyrateoptics import raytracer
 from pyrateoptics.raytracer.localcoordinates import LocalCoordinates
-from pyrateoptics.raytracer.aperture import BaseAperture, create_aperture
+#from pyrateoptics.raytracer.aperture import BaseAperture, create_aperture
+from VisualOpticsPy.aperture_add import BaseAperture, create_aperture
 from pyrateoptics.raytracer.globalconstants import standard_wavelength, canonical_ex, canonical_ey
 
 # add method to class "RayBundle"

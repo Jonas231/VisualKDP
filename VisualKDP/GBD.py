@@ -122,3 +122,64 @@ xx_fob, yy_fob, xx_caob, yy_caob = fob_caob_arrays(lfob = 0, nfob = 1, lcaob = 0
 xx_fob, yy_fob, xx_caob, yy_caob = fob_caob_arrays(lfob = 10, nfob = 11, lcaob = 0, ncaob = 1)
 
 #multi_Gaussian_prop(path_KDP_mac, spec = 'BEAM', Nsur = 5, y_fob = yy_fob, x_fob = xx_fob, z_obj_shift = 0, wavelength ='')
+
+
+# define normalized 2D gaussian
+def gaus2d(x=0, y=0, mx=0, my=0, sx=1, sy=1):
+
+    g = 1. / (2. * np.pi * sx * sy) * np.exp(-((x - mx)**2. / (2. * sx**2.) + (y - my)**2. / (2. * sy**2.)))
+    return g
+
+def FWHMofGauss(c):
+    FWHM = 2*np.sqrt(2*np.log(2))*c
+    r_1overesquared = np.sqrt(2)*FWHM/(2*np.sqrt(np.log(2)))
+    return FWHM, r_1overesquared
+
+
+Lim = -10
+x = np.linspace(-Lim, Lim)
+y = np.linspace(-Lim, Lim)
+x, y = np.meshgrid(x, y) # get 2D variables instead of 1D
+
+from matplotlib.patches import Ellipse
+# produce various displaced Gaussians
+Nx = 20
+Ny = 20
+a = 1
+import matplotlib.pylab as plt
+colors = plt.cm.jet(np.linspace(0,1,Nx))
+Centersx = np.linspace(-Lim*a,Lim*a,num = Nx)
+Centersy = np.linspace(-Lim*a,Lim*a,num = Ny)
+ells = []
+for ix in range(0, Nx):
+    for iy in range(0, Ny):
+        g = gaus2d(x, y, mx=Centersx[ix], my=Centersy[iy], sx=1, sy=1)
+        if ix == 0 and iy == 0:
+            z = g
+        else:
+            z += g
+        FWHM, r = FWHMofGauss(1)
+        ells.append(Ellipse(xy=(Centersx[ix],Centersy[iy]),width=r,
+                height=r, angle=0, edgecolor=colors[ix], lw=1, facecolor='none'))
+
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt
+
+
+fig = plt.figure()
+
+# syntax for 3-D plotting
+ax = plt.subplot(121,projection='3d')
+
+# syntax for plotting
+ax.plot_surface(x, y, z, cmap='viridis', edgecolor='black', lw=0.5, rstride=1, cstride=1, alpha=0.5)
+ax2 = plt.subplot(122)
+for e in ells:
+    ax2.add_artist(e)
+b = 1.2
+ax2.set_xlim(-10*b,10*b)
+ax2.set_ylim(-10*b,10*b)
+ax2.set_aspect('equal', adjustable='box')
+ax.set_title('2d Gaussian')
+plt.subplots_adjust(left = 0.05, right = 0.95,wspace = 0.5)
+plt.show()
